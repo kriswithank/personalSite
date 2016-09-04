@@ -1,0 +1,80 @@
+<form id="transaction-form" method="post" class="ui form">
+  {% csrf_token %}
+  <div class="field {% if form.date.errors %}error{% endif %}">
+    {{ form.date.label_tag }}
+    {{ form.date }}
+    {% if form.date.errors %}
+    <div class="ui pointing red basic label">
+      {{ form.date.errors }}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="two fields">
+    <div class="field {% if form.payment_method.errors %}error{% endif %}">
+      {{ form.payment_method.label_tag }}
+      {{ form.payment_method }}
+      {% if form.payment_method.errors %}
+      <div class="ui pointing red basic label">
+        {{ form.payment_method.errors }}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="field {% if form.retailer.errors %}error{% endif %}">
+      {{ form.retailer.label_tag }}
+      {{ form.retailer }}
+      {% if form.retailer.errors %}
+      <div class="ui pointing red basic label">
+        {{ form.retailer.errors }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="two fields">
+    <div class="field {% if form.total.errors %}error{% endif %}">
+      {{ form.total.label_tag }}
+      {{ form.total }}
+      {% if form.total.errors %}
+      <div class="ui pointing red basic label">
+        {{ form.total.errors }}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="field {% if form.tax.errors %}error{% endif %}">
+      {{ form.tax.label_tag }}
+      {{ form.tax }}
+      {% if form.tax.errors %}
+      <div class="ui pointing red basic label">
+        {{ form.tax.errors }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="field {% if form.categories.errors %}error{% endif %}">
+    {{ form.categories.label_tag }}
+    {{form.categories }}
+    {% if form.categories.errors %}
+    <div class="ui pointing red basic label">
+      {{ form.categories.errors }}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="field {% if form.description.errors %}error{% endif %}">
+    {{ form.description.label_tag }}
+    {{form.description }}
+    {% if form.description.errors %}
+    <div class="ui pointing red basic label">
+      {{ form.description.errors }}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <button name="submit_changes" type="submit">HerpyDerpy</button>
+  </div>
+</form>
