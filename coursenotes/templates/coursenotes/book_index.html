@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+
+  </head>
+
+
+  <body>
+    <div class="title">
+      {{ book.title }} by {% for author in book.author_set.all %}{{ author.name }} {% endfor %}
+    </div>
+    {% for ch in book.chapter_set.all %}
+      <div class="ch">
+        {{ ch.number }}. {{ ch.title }}
+      </div>
+    {% endfor %}
+  </body>
+
+</html>

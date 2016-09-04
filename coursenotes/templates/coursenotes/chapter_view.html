@@ -1,0 +1,36 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+      });
+    </script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </head>
+
+
+  <body>
+    <div class="title">
+      {{ ch.title }}
+    </div>
+    {% for section in ch.section_set.all %}
+      <div class="section">
+
+        <div class="title">
+          {{ section.number }}. {{ setion.title }}
+        </div>
+
+        <div class="content">
+          {{ section.content_html|safe }}
+        </div>
+
+      </div>
+    {% endfor %}
+  </body>
+
+</html>

@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+
+  </head>
+
+
+  <body>
+    <div clas="course">
+    {% for course in courses %}
+      {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
+        <div class="book-list">
+        {% for book in course.textbook_set.all %}
+          {{book.title}}
+        {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+  </body>
+
+</html>
