@@ -103,7 +103,8 @@ class Section(models.Model):
     content_html = models.TextField()
 
     def save(self):
-        self.content_html = markdown.markdown(self.content_markdown)
+        self.content_html = markdown.markdown(self.content_markdown,
+            extensions=['markdown.extensions.tables'])
         super(Section, self).save()
 
     def __str__(self):
