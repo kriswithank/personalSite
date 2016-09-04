@@ -98,13 +98,13 @@ class Section(models.Model):
     """
     parent_chapter = models.ForeignKey('Chapter', on_delete=models.CASCADE)
     number = models.SmallIntegerField()
-    title = models.CharField(max_length=500, null=True)
+    title = models.CharField(max_length=500, blank=True)
     content_markdown = models.TextField()
     content_html = models.TextField()
 
     def save(self):
-        self.content_html = markdown.mardown(self.content_markdown)
-        super(BasicPost, self).save()
+        self.content_html = markdown.markdown(self.content_markdown)
+        super(Section, self).save()
 
     def __str__(self):
         return self.title
