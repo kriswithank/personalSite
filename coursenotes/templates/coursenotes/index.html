@@ -15,7 +15,7 @@
       {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
         <div class="book-list">
         {% for book in course.textbook_set.all %}
-          {{book.title}}
+          <a href="{% url 'coursenotes:book_index' book.id %}">{{book.title}}</a>
         {% endfor %}
         </div>
     {% endfor %}

@@ -15,7 +15,7 @@
     </div>
     {% for ch in book.chapter_set.all %}
       <div class="ch">
-        {{ ch.number }}. {{ ch.title }}
+        <a href="{% url 'coursenotes:chapter_view' book.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
       </div>
     {% endfor %}
   </body>
