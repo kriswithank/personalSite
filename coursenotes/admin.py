@@ -18,9 +18,8 @@ class AuthorInline(nested_admin.NestedStackedInline):
 
 class TextBookInline(nested_admin.NestedStackedInline):
     model = TextBook
-    max_num = 1
     inlines = [AuthorInline, ChapterInline]
-    extra = 1
+    extra = 0
 
 class CourseAdmin(nested_admin.NestedModelAdmin):
     inlines = [TextBookInline]
