@@ -5,7 +5,7 @@ from nested_inline import admin as nested_admin
 class SectionInline(nested_admin.NestedStackedInline):
     model = Section
     fields = ['number', 'title', 'content_markdown']
-    extra = 1
+    extra = 0
 
 class ChapterInline(nested_admin.NestedStackedInline):
     model = Chapter
