@@ -15,22 +15,18 @@
 
 
   <body>
-    <div class="title">
-      {{ ch.title }}
-    </div>
+    <h1 class="title">Ch {{ ch.number }}. {{ ch.title }}</h1>
+
     {% for section in ch.section_set.all %}
       <div class="section">
-
-        <div class="title">
-          {{ ch.number }}.{{ section.number }} {{ section.title }}
-        </div>
+        <h3 class="section-title">{{ ch.number }}.{{ section.number }} {{ section.title }}</h1>
 
         <div class="content">
           {{ section.content_html|safe }}
         </div>
-
       </div>
     {% endfor %}
+
   </body>
 
 </html>
