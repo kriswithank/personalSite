@@ -1,5 +1,6 @@
 from django.db import models
 import markdown
+import pypandoc
 
 class Course(models.Model):
     """
@@ -103,8 +104,8 @@ class Section(models.Model):
     content_html = models.TextField()
 
     def save(self):
-        self.content_html = markdown.markdown(self.content_markdown,
-            extensions=['markdown.extensions.tables'])
+        self.content_html = pypandoc.convert(self.content_markdown, format='md',
+                    to='html', extra_args=['--mathml'])
         super(Section, self).save()
 
     def __str__(self):
