@@ -104,9 +104,23 @@ class Section(models.Model):
     content_html = models.TextField()
 
     def save(self):
-        self.content_html = pypandoc.convert(self.content_markdown, format='md',
+
+        # Append image refs to markdown
+        image_refs = ""
+        for image in self.sectionimage_set.all():
+            image_refs += '\n[{0}]: {1}'.format(image.name, image.image.url)
+        markdown_with_images = '{0}\n{1}'.format(self.content_markdown, image_refs)
+
+        self.content_html = pypandoc.convert(markdown_with_images, format='md',
                     to='html', extra_args=['--mathjax'])
+
         super(Section, self).save()
 
     def __str__(self):
         return self.title
+
+
+class SectionImage(models.Model):
+    name = models.CharField(max_length=250)
+    image = models.ImageField(upload_to="notes/images")
+    parent = models.ForeignKey('Section', on_delete=models.CASCADE)
