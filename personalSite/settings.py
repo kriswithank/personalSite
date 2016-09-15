@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'nested_inline',
+    'pagedown',
 ]
 
 MIDDLEWARE_CLASSES = [

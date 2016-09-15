@@ -1,11 +1,17 @@
 from .models import Author, Chapter, Course, Section, TextBook
+from django import forms
+from django.db import models
 from django.contrib import admin
 from nested_inline import admin as nested_admin
+from pagedown.widgets import AdminPagedownWidget
 
 class SectionInline(nested_admin.NestedStackedInline):
     model = Section
     fields = ['number', 'title', 'content_markdown']
     extra = 0
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget(show_preview=False)},
+    }
 
 class ChapterInline(nested_admin.NestedStackedInline):
     model = Chapter
