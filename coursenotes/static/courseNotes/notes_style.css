@@ -1,4 +1,4 @@
-/*Set font, background, and basic website layout*/
+/*Set font, background, and basic website layout. */
 body {
 	background-image: url("/static/courseNotes/images/wov.png");
 	background-repeat: repeat;
@@ -20,7 +20,7 @@ body > * {
 
 
 
-/*Layout for title*/
+/*Layout for title. */
 .title {
 	text-align: center;
 
@@ -30,8 +30,9 @@ body > * {
 
 
 
-/*Layout for chapter sections*/
+/*Layout for chapter sections. */
 .section {
+	padding-bottom: 15px;
 	margin-bottom: 35px;
 }
 .section > ul {
@@ -44,7 +45,15 @@ body > * {
 
 
 
-/*Stylize tables in the notes*/
+/* Layout for images. */
+img {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+
+
+/*Stylize tables in the notes. */
 .section th {
 	font-weight: normal;
 	font-style: italic;
