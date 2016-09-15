@@ -105,7 +105,7 @@ class Section(models.Model):
 
     def save(self):
         self.content_html = pypandoc.convert(self.content_markdown, format='md',
-                    to='html', extra_args=['--mathml'])
+                    to='html', extra_args=['--mathjax'])
         super(Section, self).save()
 
     def __str__(self):
