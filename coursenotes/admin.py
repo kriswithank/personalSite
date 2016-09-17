@@ -5,6 +5,19 @@ from django.contrib import admin
 from nested_inline import admin as nested_admin
 from pagedown.widgets import AdminPagedownWidget
 
+class AuthorInline(nested_admin.NestedStackedInline):
+    model = Author
+    extra = 1
+
+class TextBookInline(nested_admin.NestedStackedInline):
+    model = TextBook
+    inlines = (AuthorInline,)
+    extra = 0
+
+class CourseAdmin(nested_admin.NestedModelAdmin):
+    fields = ('name', ('dept_num', 'course_num'), ('year', 'semester'), 'instructor',)
+    inlines = (TextBookInline,)
+
 class SectionImageInline(nested_admin.NestedStackedInline):
     fields = (('name', 'image'),)
     model = SectionImage
@@ -19,22 +32,12 @@ class SectionInline(nested_admin.NestedStackedInline):
         models.TextField: {'widget': AdminPagedownWidget(show_preview=False)},
     }
 
-class ChapterInline(nested_admin.NestedStackedInline):
-    model = Chapter
+class ChapterAdmin(nested_admin.NestedModelAdmin):
+    fields = ('parent_book', ('number', 'title'),)
     inlines = (SectionInline,)
-    extra = 1
-
-class AuthorInline(nested_admin.NestedStackedInline):
-    model = Author
-    extra = 1
-
-class TextBookInline(nested_admin.NestedStackedInline):
-    model = TextBook
-    inlines = (AuthorInline, ChapterInline,)
-    extra = 0
-
-class CourseAdmin(nested_admin.NestedModelAdmin):
-    inlines = (TextBookInline,)
+    list_display = ('parent_book', 'number', 'title',)
+    list_filter = ('parent_book',)
 
 
 admin.site.register(Course, CourseAdmin)
+admin.site.register(Chapter, ChapterAdmin)
