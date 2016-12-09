@@ -2,8 +2,17 @@ from .models import Author, Chapter, Course, TextBook
 from django.shortcuts import render
 
 def index(request):
+
+    courses_by_year = {}
+    for elem in Course.objects.order_by('year', 'semester', 'course_num'):
+        when_taken = "Year {0}, Semester {1}".format(elem.year, elem.semester)
+        if when_taken in courses_by_year:
+            courses_by_year[when_taken].append(elem)
+        else:
+            courses_by_year[when_taken] = [elem, ]
+
     context = {
-        'courses': Course.objects.all()
+        'courses_by_year': courses_by_year,
     }
     return render(request, 'coursenotes/index.html', context)
 

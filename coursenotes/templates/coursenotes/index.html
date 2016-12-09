@@ -10,16 +10,17 @@
 
 
   <body>
-    <div clas="course">
-    {% for course in courses %}
-      {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
-        <div class="book-list">
-        {% for book in course.textbook_set.all %}
-          <a href="{% url 'coursenotes:book_index' book.id %}">{{book.title}}</a>
+    {% for when_taken, courses in courses_by_year.items %}
+    <h3>{{ when_taken }}</h3>
+        {% for course in courses %}
+          {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
+          <div class="book-list">
+          {% for book in course.textbook_set.all %}
+            <a href="{% url 'coursenotes:book_index' book.id %}">{{book.title}}</a>
+          {% endfor %}
+          </div>
         {% endfor %}
-        </div>
     {% endfor %}
-    </div>
   </body>
 
 </html>
