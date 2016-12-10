@@ -28,6 +28,18 @@ class Course(models.Model):
     SEM_SPRING = 2
     SEM_SUMMER = 3
 
+    def semester_name(self):
+        """
+        Returns the string name of the objects semester. Throwns and error if the
+        semester is not one of SEM_FALL, SEM_SPRING, SEM_SUMMER.
+        """
+        if (self.semester == self.SEM_FALL):
+            return "Fall"
+        if (self.semester == self.SEM_SPRING):
+            return "Spring"
+        if (self.semester == self.SEM_SUMMER):
+            return "Summer"
+
     def __str__(self):
         return self.name
 

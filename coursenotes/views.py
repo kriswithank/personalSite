@@ -5,7 +5,7 @@ def index(request):
 
     courses_by_year = {}
     for elem in Course.objects.order_by('year', 'semester', 'course_num'):
-        when_taken = "Year {0}, Semester {1}".format(elem.year, elem.semester)
+        when_taken = "{0} Year {1}".format(elem.semester_name(), elem.year)
         if when_taken in courses_by_year:
             courses_by_year[when_taken].append(elem)
         else:
