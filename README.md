@@ -4,8 +4,13 @@ This is just me playing around with the python web framework Django.
 
 ### Getting up and running.
 
-To get started, make sure that you have python, pip and virtual environment installed on your machine.
-Then, you should be able to just clone this repository and execute the following commands to get a test
+Make sure the following are installed on your machine.
+
+    * python
+    * pip
+    * virtualenv
+
+You should then be able to just clone this repository and execute the following commands to get a test
 server up and running. The website address should be displayed in the terminal after doing the following:
 
 In a terminal, navigate to where this repo is, activate the python virtual environment, and run the test
