@@ -30,13 +30,11 @@
             <a href="{% url 'coursenotes:chapter_view' book.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
         </div>
 
-
-            <ul class="list-group">
-            {% for sec in ch.section_set.all %}
-                <li class="list-group-item text-muted"><small>{{ sec.number }}. {{ sec.title }}</small></li>
-            {% endfor %}
-            </ul>
-
+        <ul class="list-group">
+        {% for sec in ch.section_set.all %}
+            <li class="list-group-item text-muted"><small>{{ sec.number }}. {{ sec.title }}</small></li>
+        {% endfor %}
+        </ul>
 
     </div>
     {% endfor %}
