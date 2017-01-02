@@ -6,7 +6,7 @@
 
 
 <head>
-    <title>Course Notes</title>
+    <title>All Notes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,6 +19,11 @@
 
 <body>
 <div class="container">
+
+    <h1>Course notes</h1>
+
+    <h4 class="text-muted">For the courses I have taken at the University of Minnesota -- Twin Cities.</h4>
+
     {% for when_taken, courses in courses_by_year.items %}
     <div class="panel panel-default">
         <div class="panel-heading">
