@@ -4,23 +4,41 @@
 <html>
 
 
-  <head>
 
-  </head>
+<head>
+    <title>Course Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
 
 
-  <body>
+
+<body>
+<div class="container">
     {% for when_taken, courses in courses_by_year.items %}
-    <h3>{{ when_taken }}</h3>
-        {% for course in courses %}
-          {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
-          <div class="book-list">
-          {% for book in course.textbook_set.all %}
-            <a href="{% url 'coursenotes:book_index' book.id %}">{{book.title}}</a>
-          {% endfor %}
-          </div>
-        {% endfor %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ when_taken }}</h3>
+        </div>
+        <div class="panel-body">
+            {% for course in courses %}
+            {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
+            <div class="book-list">
+                {% for book in course.textbook_set.all %}
+                <a href="{% url 'coursenotes:book_index' book.id %}">{{book.title}}</a>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     {% endfor %}
-  </body>
+</div>
+</body>
+
+
 
 </html>
