@@ -9,10 +9,10 @@
     <title>{{ book.title }} Notes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
 
@@ -26,15 +26,17 @@
     {% for ch in book.chapter_set.all %}
     <div class="panel panel-default">
 
-        <div class="panel-heading">
+        <div class="panel-heading" onclick="$('#sec-list-colapsible-{{ ch.number }}').collapse('toggle')">
             <a href="{% url 'coursenotes:chapter_view' book.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
         </div>
 
-        <ul class="list-group">
-        {% for sec in ch.section_set.all %}
-            <li class="list-group-item text-muted"><small>{{ sec.number }}. {{ sec.title }}</small></li>
-        {% endfor %}
-        </ul>
+        <div id="sec-list-colapsible-{{ ch.number }}" class="panel-collapse collapse">
+            <ul class="list-group">
+            {% for sec in ch.section_set.all %}
+                <li class="list-group-item text-muted"><small>{{ sec.number }}. {{ sec.title }}</small></li>
+            {% endfor %}
+            </ul>
+        </div>
 
     </div>
     {% endfor %}
