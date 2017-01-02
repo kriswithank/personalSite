@@ -22,11 +22,25 @@
 
 <h1>{{ book.title }} <small> by {% for author in book.author_set.all %}{{ author.name }} {% endfor %}</small></h1>
 
-{% for ch in book.chapter_set.all %}
-<div class="ch">
-    <a href="{% url 'coursenotes:chapter_view' book.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
+<div class="panel-group">
+    {% for ch in book.chapter_set.all %}
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <a href="{% url 'coursenotes:chapter_view' book.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
+        </div>
+
+        <div class="panel-body">
+            <ul class="list-unstyled">
+            {% for sec in ch.section_set.all %}
+                <li class="text-muted">{{ sec.number }}. {{ sec.title }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 </div>
 </body>
