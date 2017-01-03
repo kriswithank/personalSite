@@ -87,7 +87,6 @@ class Chapter(models.Model):
         number - The number of the chapter.
         title - The chapter's title.
     """
-    parent_book = models.ForeignKey('TextBook', on_delete=models.CASCADE)
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
     number = models.SmallIntegerField()
     title = models.CharField(max_length=500)
