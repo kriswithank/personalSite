@@ -31,12 +31,11 @@
         </div>
         <div class="panel-body">
             {% for course in courses %}
-            {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
-            <div class="book-list">
-                {% for book in course.textbook_set.all %}
-                <a href="{% url 'coursenotes:book_index' book.id %}">{{book.title}}</a>
-                {% endfor %}
-            </div>
+            <p>
+                <a href="{% url 'coursenotes:course_index' course.id %}">
+                    {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
+                </a>
+            </p>
             {% endfor %}
         </div>
     </div>

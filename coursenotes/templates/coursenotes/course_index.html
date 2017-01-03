@@ -20,14 +20,14 @@
 <body>
 <div class="container">
 
-<h1>{{ book.title }} <small> by {% for author in book.author_set.all %}{{ author.name }} {% endfor %}</small></h1>
+<h1>{{ course.dept_num }} {{ course.course_num }} <small>{{ course.name }}</small></h1>
 
 <div class="panel-group">
-    {% for ch in book.chapter_set.all %}
+    {% for ch in course.chapter_set.all %}
     <div class="panel panel-default">
 
         <div class="panel-heading" onclick="$('#sec-list-colapsible-{{ ch.number }}').collapse('toggle')">
-            <a href="{% url 'coursenotes:chapter_view' book.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
+            <a href="{% url 'coursenotes:chapter_view' course.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
         </div>
 
         <div id="sec-list-colapsible-{{ ch.number }}" class="panel-collapse collapse">
