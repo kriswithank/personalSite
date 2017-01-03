@@ -33,10 +33,10 @@ class SectionInline(nested_admin.NestedStackedInline):
     }
 
 class ChapterAdmin(nested_admin.NestedModelAdmin):
-    fields = ('parent_book', ('number', 'title'),)
+    fields = ('course', ('number', 'title'),)
     inlines = (SectionInline,)
-    list_display = ('parent_book', 'number', 'title',)
-    list_filter = ('parent_book',)
+    list_display = ('course', 'number', 'title',)
+    list_filter = ('course',)
 
 
 admin.site.register(Course, CourseAdmin)
