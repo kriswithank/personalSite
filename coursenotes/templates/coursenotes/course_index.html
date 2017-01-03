@@ -27,7 +27,7 @@
     <div class="panel panel-default">
 
         <div class="panel-heading" onclick="$('#sec-list-colapsible-{{ ch.number }}').collapse('toggle')">
-            <a href="{% url 'coursenotes:chapter_view' course.textbook_set.first.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
+            <a href="{% url 'coursenotes:chapter_view' course.id ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
         </div>
 
         <div id="sec-list-colapsible-{{ ch.number }}" class="panel-collapse collapse">
