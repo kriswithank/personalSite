@@ -26,6 +26,14 @@ def book_index(request, book_id):
 
 
 
+def course_index(request, course_id):
+    context = {
+        'course': Course.objects.get(id=course_id)
+    }
+    return render(request, 'coursenotes/course_index.html', context)
+
+
+
 def chapter_view(request, book_id, ch_id):
     context = {
         'ch': TextBook.objects.get(id=book_id).chapter_set.get(number=ch_id)
