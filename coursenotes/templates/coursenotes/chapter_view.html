@@ -4,33 +4,46 @@
 <html>
 
 
-  <head>
-    <title>{{ ch.title }}</title>
 
-    <script
-        src="http://code.jquery.com/jquery-3.1.0.min.js"
-        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
-        crossorigin="anonymous"></script>
+<head>
+    <title>{{ ch.title }} Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-
-    <link rel="stylesheet" href="{% static 'courseNotes/notes_style.css'%}" media="screen" title="no title">
-  </head>
+</head>
 
 
-  <body>
-    <h1 class="title">Ch {{ ch.number }}. {{ ch.title }}</h1>
 
+<body>
+<div class="container">
+
+<h1>Ch {{ ch.number }}. {{ ch.title }}</h1>
+
+<div class="panel-group">
     {% for section in ch.section_set.all %}
-      <div class="section">
-        <h3 class="section-title">{{ ch.number }}.{{ section.number }} {{ section.title }}</h1>
+    <div class="panel panel-primary">
 
-        <div class="content">
-          {{ section.content_html|safe }}
+        <div class="panel-heading" onclick="$('#sec-{{ section.number }}').collapse('toggle')">
+            <h3 class="panel-title">{{ ch.number }}.{{ section.number }} {{ section.title }}</h1>
         </div>
-      </div>
-    {% endfor %}
 
-  </body>
+        <div id="sec-{{ section.number }}" class="panel-collapse collapse in">
+            <div class="panel-body">
+                {{ section.content_html|safe }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+</div>
+</body>
+
+
 
 </html>
