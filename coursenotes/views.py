@@ -18,14 +18,6 @@ def index(request):
 
 
 
-def book_index(request, book_id):
-    context = {
-        'book': TextBook.objects.get(id=book_id)
-    }
-    return render(request, 'coursenotes/book_index.html', context)
-
-
-
 def course_index(request, course_id):
     context = {
         'course': Course.objects.get(id=course_id)
