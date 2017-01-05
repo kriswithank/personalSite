@@ -18,22 +18,24 @@ def index(request):
 
 
 
-def course_index(request, course_id):
+def course_index(request, course_slug):
     context = {
-        'course': Course.objects.get(id=course_id)
+        'course': Course.objects.get(slug=course_slug)
     }
     return render(request, 'coursenotes/course_index.html', context)
 
 
 
-def chapter_view(request, course_id, ch_id):
+def chapter_view(request, course_slug, ch_num):
     context = {
-        'ch': Course.objects.get(id=course_id).chapter_set.get(number=ch_id)
+        'ch': Course.objects.get(slug=course_slug).chapter_set.get(number=ch_num)
     }
     return render(request, 'coursenotes/chapter_view.html', context)
 
-def course_info_page(request, course_id):
+
+
+def course_info_page(request, course_slug):
     context = {
-        'course': Course.objects.get(id=course_id)
+        'course': Course.objects.get(slug=course_slug)
     }
     return render(request, 'coursenotes/course_info.html', context)
