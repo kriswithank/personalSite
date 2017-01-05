@@ -24,7 +24,7 @@ class Course(models.Model):
     year = models.SmallIntegerField()
     semester = models.SmallIntegerField()
     instructor = models.CharField(max_length=1000)
-    slug = models.SlugField(unique=True, null=True)
+    slug = models.SlugField(unique=True)
 
     SEM_FALL = 1
     SEM_SPRING = 2
