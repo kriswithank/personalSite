@@ -51,7 +51,7 @@ class Course(models.Model):
         in existance.
 
         Ex.
-            If CSCI-2011 and CSCI-2011-1 and CSCI-2011-4 already exist, then the unique
+            If CSCI-2011 and CSCI-2011-2 and CSCI-2011-4 already exist, then the unique
             slug generated will be CSCI-2011-5.
 
         Assumes that all slugs share the same structure:
