@@ -59,16 +59,13 @@ class Course(models.Model):
         where the unique slug modifier is a positive integer. This is important because
         this is expolited when generating a unique slug.
         """
-        # Do nothing if already has a slug.
-
-        self.save()
         new_slug = slugify(self.dept_num) + '-' + slugify(self.course_num)
 
         # Ensure uniqueness.
         similar_slugs = [course.slug for course in Course.objects.filter(slug__startswith=new_slug).all()]
         slug_modifiers = [slug.split(new_slug)[1][1:] for slug in similar_slugs]
         # Repalce blank with 0 and cast other modifers to int.
-        slug_modifiers = [0 if modifier == '' else int(modifier) for modifier in slug_modifiers]
+        slug_modifiers = [1 if modifier == '' else int(modifier) for modifier in slug_modifiers]
 
         if len(slug_modifiers) <= 0:
             return new_slug
