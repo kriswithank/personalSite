@@ -33,12 +33,12 @@
         {% for course in courses %}
         <div class="row">
             <div class="col-xs-11">
-                <a href="{% url 'coursenotes:course_index' course.id %}">
+                <a href="{% url 'coursenotes:course_index' course.slug %}">
                     {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
                 </a>
             </div>
             <div class="col-xs-1">
-                <a href="{% url 'coursenotes:course_info' course.id %}">
+                <a href="{% url 'coursenotes:course_info' course.slug %}">
                     <span class="glyphicon glyphicon-info-sign"></span>
                 </a>
             </div>

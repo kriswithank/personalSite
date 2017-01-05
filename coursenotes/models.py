@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 import markdown
 import pypandoc
 
@@ -23,6 +24,7 @@ class Course(models.Model):
     year = models.SmallIntegerField()
     semester = models.SmallIntegerField()
     instructor = models.CharField(max_length=1000)
+    slug = models.SlugField(unique=True)
 
     SEM_FALL = 1
     SEM_SPRING = 2
@@ -39,6 +41,43 @@ class Course(models.Model):
             return "Spring"
         if (self.semester == self.SEM_SUMMER):
             return "Summer"
+
+
+    def generate_slug(self):
+        """
+        Generates a unique slug for the object does **not** save the object. If a
+        course already exists with that same slug, it should append a unque slug
+        modifer to the end of the slug that is 1 more than the largest modifer already
+        in existance.
+
+        Ex.
+            If CSCI-2011 and CSCI-2011-2 and CSCI-2011-4 already exist, then the unique
+            slug generated will be CSCI-2011-5.
+
+        Assumes that all slugs share the same structure:
+            <dept>-<course_num>   OR   <dept>-<course_num>-<slug_unique_modifier>
+        where the unique slug modifier is a positive integer. This is important because
+        this is expolited when generating a unique slug.
+        """
+        new_slug = slugify(self.dept_num) + '-' + slugify(self.course_num)
+
+        # Ensure uniqueness.
+        similar_slugs = [course.slug for course in Course.objects.filter(slug__startswith=new_slug).all()]
+        slug_modifiers = [slug.split(new_slug)[1][1:] for slug in similar_slugs]
+        # Repalce blank with 0 and cast other modifers to int.
+        slug_modifiers = [1 if modifier == '' else int(modifier) for modifier in slug_modifiers]
+
+        if len(slug_modifiers) <= 0:
+            return new_slug
+        else:
+            return new_slug + '-' + str(max(slug_modifiers)+1)
+
+
+    def save(self, *args, **kwargs):
+        if self.slug == None or self.slug == '':
+            self.slug = self.generate_slug()
+        super(Course, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.name

@@ -5,7 +5,7 @@ app_name = 'coursenotes'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^course/(?P<course_id>[0-9]+)/$', views.course_index, name='course_index'),
-    url(r'^course/(?P<course_id>[0-9]+)/ch/(?P<ch_id>[0-9]+)/$', views.chapter_view, name='chapter_view'),
-    url(r'^course/(?P<course_id>[0-9]+)/info/$', views.course_info_page, name='course_info')
+    url(r'^(?P<course_slug>[\w-]+)/$', views.course_index, name='course_index'),
+    url(r'^(?P<course_slug>[\w-]+)/ch/(?P<ch_num>[0-9]+)/$', views.chapter_view, name='chapter_view'),
+    url(r'^(?P<course_slug>[\w-]+)/info/$', views.course_info_page, name='course_info')
 ]
