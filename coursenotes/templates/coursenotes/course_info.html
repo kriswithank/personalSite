@@ -1,0 +1,52 @@
+{% load humanize %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+    <title>{{ course.name }} Info</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<body>
+<div class="container">
+
+<h1 class="text-primary">Info about...</h1>
+
+<h1>{{ course.dept_num }} {{ course.course_num }} <small>{{ course.name }}</small></h1>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Taken...</div>
+    <div class="panel-body">{{ course.semester_name }} of my {{ course.year|ordinal }} Year</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Instructor(s)</div>
+    <div class="panel-body">{{ course.instructor }}</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Textbook(s)</div>
+    <div class="panel-body">
+        {% for text in course.textbook_set.all %}
+        <p><strong>{{ text.title }}</strong> <small>by {% for author in text.author_set.all %}{{ author.name }} {% endfor %}</small></p>
+        {% endfor %}
+    </div>
+</div>
+
+</div>
+</body>
+
+
+
+</html>

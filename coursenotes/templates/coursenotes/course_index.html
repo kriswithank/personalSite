@@ -20,7 +20,19 @@
 <body>
 <div class="container">
 
-<h1>{{ course.dept_num }} {{ course.course_num }} <small>{{ course.name }}</small></h1>
+<div class="row">
+    <div class="col-xs-11">
+        <h1>{{ course.dept_num }} {{ course.course_num }} <small>{{ course.name }}</small></h1>
+    </div>
+    <div class="col-xs-1">
+        <h3>
+            <a href="{% url 'coursenotes:course_info' course.id %}">
+                <span class="glyphicon glyphicon-info-sign"></span>
+            </a>
+        </h3>
+    </div>
+</div>
+
 
 <div class="panel-group">
     {% for ch in course.chapter_set.all %}

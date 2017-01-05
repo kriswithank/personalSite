@@ -31,3 +31,9 @@ def chapter_view(request, course_id, ch_id):
         'ch': Course.objects.get(id=course_id).chapter_set.get(number=ch_id)
     }
     return render(request, 'coursenotes/chapter_view.html', context)
+
+def course_info_page(request, course_id):
+    context = {
+        'course': Course.objects.get(id=course_id)
+    }
+    return render(request, 'coursenotes/course_info.html', context)
