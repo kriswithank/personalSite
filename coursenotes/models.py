@@ -73,6 +73,11 @@ class Course(models.Model):
             return new_slug + '-' + str(max(slug_modifiers)+1)
 
 
+    def save(self, *args, **kwargs):
+        if self.slug == None or self.slug == '':
+            self.slug = self.generate_slug()
+        super(Course, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.name
