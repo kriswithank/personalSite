@@ -4,6 +4,20 @@
 
 
 {% block body %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".panel-heading").click(function(e){
+            console.log("foo");
+            var ch = $(this).attr("ch-num");
+            $("#sec-list-ch" + ch).collapse("toggle");
+        });
+
+        $(".panel-heading a").click(function(e){
+            e.stopPropagation();
+        });
+    });
+</script>
+
 <div class="container">
 
 <div class="row">
@@ -24,11 +38,11 @@
     {% for ch in course.chapter_set.all %}
     <div class="panel panel-default">
 
-        <div class="panel-heading" onclick="$('#sec-list-colapsible-{{ ch.number }}').collapse('toggle')">
+        <div class="panel-heading" ch-num="{{ ch.number }}">
             <a href="{% url 'coursenotes:chapter_view' course.slug ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
         </div>
 
-        <div id="sec-list-colapsible-{{ ch.number }}" class="panel-collapse collapse">
+        <div id="sec-list-ch{{ ch.number }}" class="panel-collapse collapse">
             <ul class="list-group">
             {% for sec in ch.section_set.all %}
                 <li class="list-group-item text-muted"><small>{{ sec.number }}. {{ sec.title }}</small></li>
