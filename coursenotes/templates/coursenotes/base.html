@@ -16,7 +16,48 @@
 
 
 <body>
+
+
+
+    <!-- Navbar -->
+    {% with req=request.resolver_match  %}
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" >Kris Swann</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notes <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Latest courses</li>
+                        <li {% if req.app_name == 'coursenotes' and req.url_name == 'course_index' and req.kwargs.course_slug == 'biol-1009' %}class="active"{% endif %}>
+                            <a href="{% url 'coursenotes:course_index' 'biol-1009' %}">BIOL 1009 - General Biology</a>
+                        </li>
+                        <li {% if req.app_name == 'coursenotes' and req.url_name == 'course_index' and req.kwargs.course_slug == 'csci-1913' %}class="active"{% endif %}>
+                            <a href="{% url 'coursenotes:course_index' 'csci-1913' %}">CSCI 1913 - Intro to Algorithms Program Development </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li {% if req.app_name == "coursenotes" and req.url_name == "index" %}class="active"{% endif %}>
+                            <a href="{% url 'coursenotes:index' %}">All courses</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="navbar-text navbar-right">Uninspired dolt.</p>
+
+        </div>
+    </nav>
+    {% endwith %}
+
+
+
     {% block body %}{% endblock %}
+
+
+
 </body>
 
 
