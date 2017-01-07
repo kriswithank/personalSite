@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+    <title>All Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<body>
+
+
+
+    <!-- Navbar -->
+    {% with req=request.resolver_match  %}
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" >Kris Swann</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notes <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li class="dropdown-header">Latest courses</li>
+                        {% for course in recent_courses %}
+                        <li {% if req.app_name == 'coursenotes' and req.url_name == 'course_index' and req.kwargs.course_slug == course.slug %}class="active"{% endif %}>
+                            <a href="{% url 'coursenotes:course_index' course.slug %}">{{ course.dept_num }} {{ course.course_num }} - <small>{{ course.name }}</small></a>
+                        </li>
+                        {% endfor %}
+
+                        <li role="separator" class="divider"></li>
+
+                        <li {% if req.app_name == "coursenotes" and req.url_name == "index" %}class="active"{% endif %}>
+                            <a href="{% url 'coursenotes:index' %}">All courses</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="navbar-text navbar-right">Uninspired dolt.</p>
+
+        </div>
+    </nav>
+    {% endwith %}
+
+
+
+    {% block body %}{% endblock %}
+
+
+
+</body>
+
+
+
+</html>
