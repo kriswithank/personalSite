@@ -4,6 +4,15 @@
 
 
 {% block body %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".panel-heading").click(function(e){
+            var sec = $(this).attr("sec-num");
+            $("#sec-" + sec).collapse("toggle");
+        });
+    });
+</script>
+
 <div class="container">
 
 <h1>Ch {{ ch.number }}. {{ ch.title }}</h1>
@@ -12,7 +21,7 @@
     {% for section in ch.section_set.all %}
     <div class="panel panel-primary">
 
-        <div class="panel-heading" onclick="$('#sec-{{ section.number }}').collapse('toggle')">
+        <div class="panel-heading" sec-num="{{ section.number }}">
             <h3 class="panel-title">{{ ch.number }}.{{ section.number }} {{ section.title }}</h1>
         </div>
 
