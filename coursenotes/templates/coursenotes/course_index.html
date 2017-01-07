@@ -6,10 +6,14 @@
 {% block body %}
 <script type="text/javascript">
     $(document).ready(function(){
-        $(".panel-heading").click(function(){
+        $(".panel-heading").click(function(e){
             console.log("foo");
             var ch = $(this).attr("ch-num");
             $("#sec-list-ch" + ch).collapse("toggle");
+        });
+
+        $(".panel-heading a").click(function(e){
+            e.stopPropagation();
         });
     });
 </script>
