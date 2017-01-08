@@ -23,32 +23,41 @@
     {% with req=request.resolver_match  %}
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
+
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" href="#" >Kris Swann</a>
             </div>
 
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notes <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+            <div class="collapse navbar-collapse" id="main-navbar">
 
-                        <li class="dropdown-header">Latest courses</li>
-                        {% for course in recent_courses %}
-                        <li {% if req.app_name == 'coursenotes' and req.url_name == 'course_index' and req.kwargs.course_slug == course.slug %}class="active"{% endif %}>
-                            <a href="{% url 'coursenotes:course_index' course.slug %}">{{ course.dept_num }} {{ course.course_num }} - <small>{{ course.name }}</small></a>
-                        </li>
-                        {% endfor %}
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notes <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Latest courses</li>
+                            {% for course in recent_courses %}
+                            <li {% if req.app_name == 'coursenotes' and req.url_name == 'course_index' and req.kwargs.course_slug == course.slug %}class="active"{% endif %}>
+                                <a href="{% url 'coursenotes:course_index' course.slug %}">{{ course.dept_num }} {{ course.course_num }} - <small>{{ course.name }}</small></a>
+                            </li>
+                            {% endfor %}
 
-                        <li role="separator" class="divider"></li>
+                            <li role="separator" class="divider"></li>
 
-                        <li {% if req.app_name == "coursenotes" and req.url_name == "index" %}class="active"{% endif %}>
-                            <a href="{% url 'coursenotes:index' %}">All courses</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            <li {% if req.app_name == "coursenotes" and req.url_name == "index" %}class="active"{% endif %}>
+                                <a href="{% url 'coursenotes:index' %}">All courses</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
-            <p class="navbar-text navbar-right">Uninspired dolt.</p>
+                <p class="navbar-text navbar-right hidden-xs">Uninspired dolt.</p>
+
+            </div>
 
         </div>
     </nav>
