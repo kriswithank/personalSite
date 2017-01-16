@@ -1,4 +1,5 @@
 from .models import Author, Chapter, Course, TextBook
+from collections import OrderedDict
 from django.db.models import Max
 from django.shortcuts import render
 
@@ -7,24 +8,24 @@ from django.shortcuts import render
 def get_base_context():
     max_year = Course.objects.all().aggregate(Max('year'))['year__max']
     max_sem = Course.objects.filter(year=max_year).aggregate(Max('semester'))['semester__max']
+    latest_course = Course.objects.order_by('-year', '-semester')[0]
     return {
-        'recent_courses': Course.objects.filter(year=max_year, semester=max_sem)
+        'recent_courses': Course.objects.filter(year=latest_course.year, semester=latest_course.semester).order_by('course_num')
     }
 
 
 
 def index(request):
-
-    courses_by_year = {}
-    for elem in Course.objects.order_by('year', 'semester', 'course_num'):
-        when_taken = "{0} Year {1}".format(elem.semester_name(), elem.year)
-        if when_taken in courses_by_year:
-            courses_by_year[when_taken].append(elem)
+    courses_by_sem = OrderedDict()
+    for course in Course.objects.order_by('-year', '-semester', 'course_num'):
+        when_taken = "{0} Year {1}".format(course.semester_name(), course.year)
+        if when_taken in courses_by_sem:
+            courses_by_sem[when_taken].append(course)
         else:
-            courses_by_year[when_taken] = [elem, ]
+            courses_by_sem[when_taken] = [course, ]
 
     context = {
-        'courses_by_year': courses_by_year,
+        'courses_by_sem': courses_by_sem,
     }
     context.update(get_base_context())
     return render(request, 'coursenotes/index.html', context)
