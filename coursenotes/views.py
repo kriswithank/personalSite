@@ -15,16 +15,16 @@ def get_base_context():
 
 def index(request):
 
-    courses_by_year = {}
-    for elem in Course.objects.order_by('year', 'semester', 'course_num'):
-        when_taken = "{0} Year {1}".format(elem.semester_name(), elem.year)
-        if when_taken in courses_by_year:
-            courses_by_year[when_taken].append(elem)
+    courses_by_sem = {}
+    for course in Course.objects.order_by('year', 'semester', 'course_num'):
+        when_taken = "{0} Year {1}".format(course.semester_name(), course.year)
+        if when_taken in courses_by_sem:
+            courses_by_sem[when_taken].append(course)
         else:
-            courses_by_year[when_taken] = [elem, ]
+            courses_by_sem[when_taken] = [course, ]
 
     context = {
-        'courses_by_year': courses_by_year,
+        'courses_by_sem': courses_by_sem,
     }
     context.update(get_base_context())
     return render(request, 'coursenotes/index.html', context)
