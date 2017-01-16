@@ -1,4 +1,5 @@
 from .models import Author, Chapter, Course, TextBook
+from collections import OrderedDict
 from django.db.models import Max
 from django.shortcuts import render
 
@@ -14,8 +15,7 @@ def get_base_context():
 
 
 def index(request):
-
-    courses_by_sem = {}
+    courses_by_sem = OrderedDict()
     for course in Course.objects.order_by('-year', '-semester', 'course_num'):
         when_taken = "{0} Year {1}".format(course.semester_name(), course.year)
         if when_taken in courses_by_sem:
