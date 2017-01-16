@@ -8,8 +8,9 @@ from django.shortcuts import render
 def get_base_context():
     max_year = Course.objects.all().aggregate(Max('year'))['year__max']
     max_sem = Course.objects.filter(year=max_year).aggregate(Max('semester'))['semester__max']
+    latest_course = Course.objects.order_by('-year', '-semester')[0]
     return {
-        'recent_courses': Course.objects.filter(year=max_year, semester=max_sem)
+        'recent_courses': Course.objects.filter(year=latest_course.year, semester=latest_course.semester).order_by('course_num')
     }
 
 
