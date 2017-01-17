@@ -39,6 +39,9 @@
     <div class="panel panel-default">
 
         <div class="panel-heading" ch-num="{{ ch.number }}">
+            <a href="{% url 'admin:coursenotes_chapter_change' ch.id %}" class="pull-right">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
             <a href="{% url 'coursenotes:chapter_view' course.slug ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
         </div>
 
