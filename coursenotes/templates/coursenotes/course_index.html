@@ -1,5 +1,6 @@
 {% extends "coursenotes/base.html" %}
 {% load staticfiles %}
+{% load custom_tags %}
 
 
 
@@ -18,46 +19,60 @@
     });
 </script>
 
+
+
 <div class="container">
 
-<div class="row">
-    <div class="col-xs-11">
-        <h1>{{ course.dept_num }} {{ course.course_num }} <small>{{ course.name }}</small></h1>
+    <div class="row">
+        <div class="col-xs-11">
+            <h1>{{ course.dept_num }} {{ course.course_num }} <small>{{ course.name }}</small></h1>
+        </div>
+        <div class="col-xs-1">
+            <h3>
+                <a href="{% url 'coursenotes:course_info' course.slug %}">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                </a>
+            </h3>
+        </div>
     </div>
-    <div class="col-xs-1">
-        <h3>
-            <a href="{% url 'coursenotes:course_info' course.slug %}">
-                <span class="glyphicon glyphicon-info-sign"></span>
-            </a>
-        </h3>
-    </div>
-</div>
 
 
-<div class="panel-group">
-    {% for ch in course.chapter_set.all %}
-    <div class="panel panel-default">
 
-        <div class="panel-heading" ch-num="{{ ch.number }}">
-            {% if user.is_superuser %}
-            <a href="{% url 'admin:coursenotes_chapter_change' ch.id %}" class="pull-right">
-                <span class="glyphicon glyphicon-edit"></span>
-            </a>
-            {% endif %}
-            <a href="{% url 'coursenotes:chapter_view' course.slug ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
+    <div class="panel-group">
+
+        {% for ch in course.chapter_set.all %}
+        <div class="panel panel-default">
+
+            <div class="panel-heading" ch-num="{{ ch.number }}">
+                {% if user.is_superuser %}
+                <a href="{% url 'admin:coursenotes_chapter_change' ch.id %}" class="pull-right">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                {% endif %}
+                <a href="{% url 'coursenotes:chapter_view' course.slug ch.number %}">{{ ch.number }}. {{ ch.title }}</a>
+            </div>
+
+            <div id="sec-list-ch{{ ch.number }}" class="panel-collapse collapse">
+                <ul class="list-group">
+                {% for sec in ch.section_set.all %}
+                    <li class="list-group-item text-muted"><small>{{ sec.number }}. {{ sec.title }}</small></li>
+                {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+        {% endfor %}
+
+
+
+        <!-- Add new chapter -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="{% url 'admin:coursenotes_chapter_add' %}">Add another chapter</a>
+            </div>
         </div>
 
-        <div id="sec-list-ch{{ ch.number }}" class="panel-collapse collapse">
-            <ul class="list-group">
-            {% for sec in ch.section_set.all %}
-                <li class="list-group-item text-muted"><small>{{ sec.number }}. {{ sec.title }}</small></li>
-            {% endfor %}
-            </ul>
-        </div>
-
     </div>
-    {% endfor %}
-</div>
 
 </div>
 {% endblock %}
