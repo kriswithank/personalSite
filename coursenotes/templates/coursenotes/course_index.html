@@ -68,7 +68,7 @@
         <!-- Add new chapter -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="{% url 'admin:coursenotes_chapter_add' %}">Add another chapter</a>
+                <a href="{% url_with_query 'admin:coursenotes_chapter_add' course=course.id %}">Add another chapter</a>
             </div>
         </div>
 
