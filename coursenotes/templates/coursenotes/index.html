@@ -6,33 +6,42 @@
 {% block body %}
 <div class="container">
 
-<h1>Course notes</h1>
+    <h1>Course notes</h1>
 
-<h4 class="text-muted">For the courses I have taken at the University of Minnesota -- Twin Cities.</h4>
 
-{% for when_taken, courses in courses_by_sem.items %}
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">{{ when_taken }}</h3>
-    </div>
-    <div class="panel-body">
-        {% for course in courses %}
-        <div class="row">
-            <div class="col-xs-11">
-                <a href="{% url 'coursenotes:course_index' course.slug %}">
-                    {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
-                </a>
-            </div>
-            <div class="col-xs-1">
-                <a href="{% url 'coursenotes:course_info' course.slug %}">
-                    <span class="glyphicon glyphicon-info-sign"></span>
-                </a>
-            </div>
+
+    <h4 class="text-muted">For the courses I have taken at the University of Minnesota -- Twin Cities.</h4>
+
+
+
+    {% for when_taken, courses in courses_by_sem.items %}
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ when_taken }}</h3>
         </div>
-        {% endfor %}
+
+
+
+        <div class="panel-body">
+            {% for course in courses %}
+            <div class="row">
+                <div class="col-xs-11">
+                    <a href="{% url 'coursenotes:course_index' course.slug %}">
+                        {{ course.dept_num }} {{ course.course_num }} - {{ course.name }}
+                    </a>
+                </div>
+                <div class="col-xs-1">
+                    <a href="{% url 'coursenotes:course_info' course.slug %}">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
     </div>
-</div>
-{% endfor %}
+    {% endfor %}
 
 </div>
 {% endblock %}

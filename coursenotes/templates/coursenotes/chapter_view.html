@@ -5,11 +5,7 @@
 
 {% block additional_resources %}
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-{% endblock %}
 
-
-
-{% block body %}
 <script type="text/javascript">
     $(document).ready(function(){
         $(".panel-heading").click(function(e){
@@ -18,40 +14,42 @@
         });
     });
 </script>
+{% endblock %}
 
+
+
+{% block body %}
 <div class="container">
 
-
-
-<div class="page-header">
-    <h1>
-        {% if user.is_superuser %}
-        <a href="{% url 'admin:coursenotes_chapter_change' ch.id %}" class="btn btn-link btn-lg pull-right">
-            <span class="glyphicon glyphicon-edit"></span> <span class="hidden-xs">Edit me!</span>
-        </a>
-        {% endif %}
-        Ch {{ ch.number }}. {{ ch.title }}
-    </h1>
-</div>
+    <div class="page-header">
+        <h1>
+            {% if user.is_superuser %}
+            <a href="{% url 'admin:coursenotes_chapter_change' ch.id %}" class="btn btn-link btn-lg pull-right">
+                <span class="glyphicon glyphicon-edit"></span> <span class="hidden-xs">Edit me!</span>
+            </a>
+            {% endif %}
+            Ch {{ ch.number }}. {{ ch.title }}
+        </h1>
+    </div>
 
 
 
-<div class="panel-group">
-    {% for section in ch.section_set.all %}
-    <div class="panel panel-primary">
+    <div class="panel-group">
+        {% for section in ch.section_set.all %}
+        <div class="panel panel-primary">
 
-        <div class="panel-heading" sec-num="{{ section.number }}">
-            <h3 class="panel-title">{{ ch.number }}.{{ section.number }} {{ section.title }}</h1>
-        </div>
+            <div class="panel-heading" sec-num="{{ section.number }}">
+                <h3 class="panel-title">{{ ch.number }}.{{ section.number }} {{ section.title }}</h1>
+            </div>
 
-        <div id="sec-{{ section.number }}" class="panel-collapse collapse in">
-            <div class="panel-body">
-                {{ section.content_html|safe }}
+            <div id="sec-{{ section.number }}" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    {{ section.content_html|safe }}
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
 </div>
 {% endblock %}

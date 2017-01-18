@@ -4,23 +4,29 @@
 
 
 
-{% block body %}
+{% block additional_resources %}
 <script type="text/javascript">
     $(document).ready(function(){
+
+        // Toggle collapse of section lists.
         $(".panel-heading").click(function(e){
             console.log("foo");
             var ch = $(this).attr("ch-num");
             $("#sec-list-ch" + ch).collapse("toggle");
         });
 
+        // Keep panel from collapsing (toggling) when clicking on link.
+        // Makes the state remain the same when using the back button in browser.
         $(".panel-heading a").click(function(e){
             e.stopPropagation();
         });
     });
 </script>
+{% endblock %}
 
 
 
+{% block body %}
 <div class="container">
 
     <div class="row">
