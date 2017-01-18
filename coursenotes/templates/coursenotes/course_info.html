@@ -7,28 +7,36 @@
 {% block body %}
 <div class="container">
 
-<h1 class="text-primary">Info about...</h1>
+    <h1 class="text-primary">Info about...</h1>
 
-<h1>{{ course.dept_num }} {{ course.course_num }} <small>{{ course.name }}</small></h1>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Taken...</div>
-    <div class="panel-body">{{ course.semester_name }} of my {{ course.year|ordinal }} Year</div>
-</div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Instructor(s)</div>
-    <div class="panel-body">{{ course.instructor }}</div>
-</div>
+    <h1>{{ course.dept_num }} {{ course.course_num }} <small>{{ course.name }}</small></h1>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Textbook(s)</div>
-    <div class="panel-body">
-        {% for text in course.textbook_set.all %}
-        <p><strong>{{ text.title }}</strong> <small>by {% for author in text.author_set.all %}{{ author.name }} {% endfor %}</small></p>
-        {% endfor %}
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Taken...</div>
+        <div class="panel-body">{{ course.semester_name }} of my {{ course.year|ordinal }} Year</div>
     </div>
-</div>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Instructor(s)</div>
+        <div class="panel-body">{{ course.instructor }}</div>
+    </div>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Textbook(s)</div>
+        <div class="panel-body">
+            {% for text in course.textbook_set.all %}
+            <p><strong>{{ text.title }}</strong> <small>by {% for author in text.author_set.all %}{{ author.name }} {% endfor %}</small></p>
+            {% endfor %}
+        </div>
+    </div>
 
 </div>
 {% endblock %}
