@@ -6,14 +6,28 @@
 
 
 <head>
+    <!-- Properites -->
     <title>All Notes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
+    <!-- Bootstrap stuff -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- Cusom stuff -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            // Load notes homepage on double click of the notes dropdown.
+            $('#nav-notes-dropdown').dblclick(function(e){
+                var url = $(this).attr('data-target-url');
+                console.log('hi there');
+                window.location.href = url;
+            });
+            
+        });
+    </script>
     {% block additional_resources %}{% endblock %}
 </head>
 
@@ -24,7 +38,6 @@
 
 
     <!-- Navbar -->
-    {% with req=request.resolver_match  %}
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
 
@@ -41,7 +54,11 @@
 
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notes <span class="caret"></span></a>
+
+                        <a id="nav-notes-dropdown" class="dropdown-toggle" data-toggle="dropdown" data-target-url="{% url 'coursenotes:index' %}">
+                            Notes <span class="caret"></span>
+                        </a>
+
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Latest courses</li>
                             {% for course in recent_courses %}
@@ -56,6 +73,7 @@
                                 <a href="{% url 'coursenotes:index' %}">All courses</a>
                             </li>
                         </ul>
+
                     </li>
                 </ul>
 
@@ -65,7 +83,6 @@
 
         </div>
     </nav>
-    {% endwith %}
 
 
 
