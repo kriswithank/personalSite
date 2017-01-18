@@ -66,11 +66,13 @@
 
 
         <!-- Add new chapter -->
+        {% if user.is_superuser %}
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a href="{% url_with_query 'admin:coursenotes_chapter_add' course=course.id %}">Add another chapter</a>
             </div>
         </div>
+        {% endif %}
 
     </div>
 
