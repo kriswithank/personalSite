@@ -154,6 +154,9 @@ class Section(models.Model):
     content_markdown = models.TextField()
     content_html = models.TextField()
 
+    GRAPH_START_TAG = '<graph>'
+    GRAPH_END_TAG = '</graph>'
+
     def get_markdown_with_image_refs(self):
         """
         Returns a string with the markdown with the image urls appended onto the end
@@ -171,11 +174,26 @@ class Section(models.Model):
 
         return '{0}\n{1}'.format(self.content_markdown, image_refs)
 
+    def get_markdown_graphviz_sub(self, markdown):
+        """
+        Substitutes graphviz start and end tags with appropriate tags and returns result.
+
+        Argument 'markdown' is not modified.
+        """
+        working_start_tag = "<img src='http://g.gravizo.com/g?"
+        working_end_tag = "'/>"
+
+        copy = markdown.replace(self.GRAPH_START_TAG, working_start_tag)
+        copy = copy.replace(self.GRAPH_END_TAG, working_end_tag)
+
+        return copy
+
     def save(self):
 
-        markdown_with_images = self.get_markdown_with_image_refs()
+        processed_markdown = self.get_markdown_with_image_refs()
+        processed_markdown = self.get_markdown_graphviz_sub(processed_markdown)
 
-        self.content_html = pypandoc.convert(markdown_with_images, format='md',
+        self.content_html = pypandoc.convert(processed_markdown, format='md',
                     to='html', extra_args=['--mathjax'])
 
         super(Section, self).save()
