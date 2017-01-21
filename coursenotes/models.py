@@ -190,7 +190,7 @@ class Section(models.Model):
 
     def save(self):
 
-        processed_markdown = self.get_markdown_with_image_refs(self.content_html)
+        processed_markdown = self.get_markdown_with_image_refs(self.content_markdown)
         processed_markdown = self.get_markdown_graphviz_sub(processed_markdown)
 
         self.content_html = pypandoc.convert(processed_markdown, format='md',
