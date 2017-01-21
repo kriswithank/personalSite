@@ -154,13 +154,26 @@ class Section(models.Model):
     content_markdown = models.TextField()
     content_html = models.TextField()
 
-    def save(self):
+    def get_markdown_with_image_refs(self):
+        """
+        Returns a string with the markdown with the image urls appended onto the end
+        of the user generated markdown.
 
-        # Append image refs to markdown
+        The user's markdown is not modified.
+
+        Takes advantatge of the syntax in markdown to append the usl of named images
+        at the end of a file in order to make inclusion of images easier.
+        """
         image_refs = ""
+
         for image in self.sectionimage_set.all():
             image_refs += '\n[{0}]: {1}'.format(image.name, image.image.url)
-        markdown_with_images = '{0}\n{1}'.format(self.content_markdown, image_refs)
+
+        return '{0}\n{1}'.format(self.content_markdown, image_refs)
+
+    def save(self):
+
+        markdown_with_images = self.get_markdown_with_image_refs()
 
         self.content_html = pypandoc.convert(markdown_with_images, format='md',
                     to='html', extra_args=['--mathjax'])
