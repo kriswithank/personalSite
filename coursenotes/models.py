@@ -157,14 +157,13 @@ class Section(models.Model):
     GRAPH_START_TAG = '<graph>'
     GRAPH_END_TAG = '</graph>'
 
-    def get_markdown_with_image_refs(self):
+    def get_markdown_with_image_refs(self, markdown):
         """
-        Returns a string with the markdown with the image urls appended onto the end
-        of the user generated markdown.
+        Returns a string of markdown with image urls appended to end.
 
-        The user's markdown is not modified.
+        Argument 'markdown' is not modified.
 
-        Takes advantatge of the syntax in markdown to append the usl of named images
+        Takes advantatge of the syntax in markdown to append the urls of named images
         at the end of a file in order to make inclusion of images easier.
         """
         image_refs = ""
@@ -172,11 +171,12 @@ class Section(models.Model):
         for image in self.sectionimage_set.all():
             image_refs += '\n[{0}]: {1}'.format(image.name, image.image.url)
 
-        return '{0}\n{1}'.format(self.content_markdown, image_refs)
+        return '{0}\n{1}'.format(markdown, image_refs) # Append image_refs to markdown.
 
     def get_markdown_graphviz_sub(self, markdown):
         """
-        Substitutes graphviz start and end tags with appropriate tags and returns result.
+        Substitutes graphviz start and end tags with appropriate, working tags and
+        returns result.
 
         Argument 'markdown' is not modified.
         """
@@ -190,7 +190,7 @@ class Section(models.Model):
 
     def save(self):
 
-        processed_markdown = self.get_markdown_with_image_refs()
+        processed_markdown = self.get_markdown_with_image_refs(self.content_html)
         processed_markdown = self.get_markdown_graphviz_sub(processed_markdown)
 
         self.content_html = pypandoc.convert(processed_markdown, format='md',
